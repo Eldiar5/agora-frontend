@@ -120,7 +120,7 @@ function PersonForm({
   login,
   router,
 }: {
-  login: (token: string, userLogin: string) => void
+  login: (accessToken: string, refreshToken: string, login: string) => void
   router: ReturnType<typeof useRouter>
 }) {
   const {
@@ -151,7 +151,7 @@ function PersonForm({
         const loginResponse = await authService.login(data.login, data.password)
 
         // 3. Сохраняем токен и обновляем контекст
-        login(loginResponse.token, loginResponse.login)
+        login(loginResponse.token.accessToken, loginResponse.token.refreshToken, loginResponse.login)
 
         toast.success("Account created successfully! Redirecting...")
         router.push("/")
@@ -251,7 +251,7 @@ function OrganizationForm({
   login,
   router,
 }: {
-  login: (token: string, userLogin: string) => void
+  login: (accessToken: string, refreshToken: string, login: string) => void
   router: ReturnType<typeof useRouter>
 }) {
   const {
@@ -281,7 +281,7 @@ function OrganizationForm({
         const loginResponse = await authService.login(data.login, data.password)
 
         // 3. Сохранение сессии
-        login(loginResponse.token, loginResponse.login)
+        login(loginResponse.token.accessToken, loginResponse.token.refreshToken, loginResponse.login)
 
         toast.success("Organization account created! Redirecting...")
         router.push("/")
